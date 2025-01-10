@@ -1,5 +1,14 @@
 package main
 
+/*
+
+Petit projet pour apprendre les bases de Go
+But : deviner le nombre choisi aléatoirement
+Date : 10.01.25
+comm : code surrement pas opti
+
+*/
+import (
 	"bufio"
 	"fmt"
 	"math/rand"
@@ -10,35 +19,34 @@ package main
 )
 
 func main() {
-	// Initialisation du générateur de nombres aléatoires
-	rand.Seed(time.Now().UnixNano())
+	rand.Seed(time.Now().UnixNano())   // init du gen
 	nombreSecret := rand.Intn(100) + 1 // Nombre entre 1 et 100
 
 	fmt.Println("Bienvenue dans le jeu de devinette de nombres !")
-	fmt.Println("Je pense à un nombre entre 1 et 100. Pouvez-vous le deviner ?")
+	fmt.Println("Je pense à un nombre entre 1 et 100. le deviner !")
 
 	scanner := bufio.NewScanner(os.Stdin)
 	tentatives := 0
 
 	for {
-		fmt.Print("Entrez votre devinette : ")
+		fmt.Print("Entre ta devinette : ")
 		scanner.Scan()
 		entree := scanner.Text()
 		devinette, err := strconv.Atoi(strings.TrimSpace(entree))
 
 		if err != nil {
-			fmt.Println("Veuillez entrer un nombre valide.")
+			fmt.Println("Entre un nombre valide.")
 			continue
 		}
 
 		tentatives++
 
 		if devinette < nombreSecret {
-			fmt.Println("C'est plus grand.")
+			fmt.Println("C'est plus grand ")
 		} else if devinette > nombreSecret {
-			fmt.Println("C'est plus petit.")
+			fmt.Println("C'est plus petit ")
 		} else {
-			fmt.Printf("Félicitations ! Vous avez trouvé le nombre en %d tentatives.\n", tentatives)
+			fmt.Printf("Bravo ! Tu as trouvé le nombre en %d tentatives.\n", tentatives)
 			break
 		}
 	}
